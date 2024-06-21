@@ -382,6 +382,7 @@
 "Assets/Scripts/Follow_Player.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/HealthBar.cs"
+"Assets/Scripts/killPlayer.cs"
 "Assets/Scripts/MenuController.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/PlayerShadow.cs"

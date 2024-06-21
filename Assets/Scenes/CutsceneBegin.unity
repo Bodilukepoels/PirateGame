@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9003f76d3bf8dc34b8797416594ebb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeTime: 15
+  changeTime: 20
   sceneName: Game 1
 --- !u!4 &557956183
 Transform:
