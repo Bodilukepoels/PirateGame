@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Set initial bananas to 200
+            totalBananas.bananas = 200;
+            Debug.Log("Initial bananas set to " + totalBananas.bananas);
         }
         else
         {

@@ -14,6 +14,8 @@ public class ShopManagerScript : MonoBehaviour
     public static float speed;
     public static float hp;
 
+    public AudioSource angryMonkeySound;
+
     void Awake()
     {
         if (Instance == null)
@@ -69,16 +71,18 @@ public class ShopManagerScript : MonoBehaviour
         int upgradeID = buttonInfo.UpgradeID;
         int price = shopItems[1, upgradeID];
 
-        Debug.Log("Trying to buy upgrade ID: " + upgradeID + ", Price: " + price + ", Current bananas: " + totalBananas.bananas);
+        Debug.Log($"Trying to buy upgrade ID: {upgradeID}, Price: {price}, Current bananas: {totalBananas.bananas}");
 
         if (totalBananas.bananas >= price)
         {
             totalBananas.bananas -= price;
             shopItems[2, upgradeID]++;
 
-            shopItems[1, upgradeID] = Mathf.CeilToInt(price * 1.15f);
+            int newPrice = Mathf.CeilToInt(price * 1.15f);
+            if (newPrice < 1) newPrice = 1;
+            shopItems[1, upgradeID] = newPrice;
 
-            Debug.Log("Purchase successful. New quantity: " + shopItems[2, upgradeID] + ", New price: " + shopItems[1, upgradeID]);
+            Debug.Log($"Purchase successful. New quantity: {shopItems[2, upgradeID]}, New price: {shopItems[1, upgradeID]}");
 
             buttonInfo.QuantityTxt.text = shopItems[2, upgradeID].ToString();
             buttonInfo.UpdatePriceText();
@@ -88,6 +92,11 @@ public class ShopManagerScript : MonoBehaviour
         else
         {
             Debug.LogWarning("Not enough bananas to purchase upgrade");
+
+            if (angryMonkeySound != null)
+            {
+                angryMonkeySound.Play();
+            }
         }
     }
 

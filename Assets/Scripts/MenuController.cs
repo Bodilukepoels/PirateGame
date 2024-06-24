@@ -14,6 +14,11 @@ public class MenuController : MonoBehaviour
     Vector2 moveDirection;
     bool isDead = false;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Update()
     {
         if (isDead)
@@ -57,6 +62,8 @@ public class MenuController : MonoBehaviour
     {
         animator.SetBool("IsDead", true);
         StartCoroutine(DieHandler());
+
+        playSound.Play();
     }
 
     IEnumerator DieHandler()
