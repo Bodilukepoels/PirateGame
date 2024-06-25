@@ -9,19 +9,20 @@ public class ButtonInfo : MonoBehaviour
     public int UpgradeID;
     public TMP_Text PriceText;
     public TMP_Text QuantityTxt;
+    private Button button;
 
     void Start()
     {
+        button = GetComponent<Button>();
+        button.onClick.AddListener(() => ShopManagerScript.Instance.Buy(UpgradeID));
+
+
         UpdatePriceText();
     }
 
     public void UpdatePriceText()
     {
-        if (ShopManagerScript.Instance != null)
-        {
             PriceText.text = ShopManagerScript.Instance.shopItems[1, UpgradeID].ToString();
             QuantityTxt.text = ShopManagerScript.Instance.shopItems[2, UpgradeID].ToString();
-            Debug.Log($"Updated button {UpgradeID} with price: {PriceText.text}, quantity: {QuantityTxt.text}");
-        }
     }
 }

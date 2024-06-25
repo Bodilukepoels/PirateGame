@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManagerScript : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class UIManagerScript : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
@@ -26,11 +28,21 @@ public class UIManagerScript : MonoBehaviour
     {
         bananasTxt.text = totalBananas.bananas.ToString();
         totalBananas.OnBananasChanged += UpdateBananasText;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDestroy()
     {
         totalBananas.OnBananasChanged -= UpdateBananasText;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "youDied")
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void UpdateBananasText(int newBananas)

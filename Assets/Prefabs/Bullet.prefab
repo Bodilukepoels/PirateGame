@@ -128,7 +128,7 @@ MonoBehaviour:
   speed: 20
   damage: 40
   rb: {fileID: 8444735265996009373}
-  impactEffect: {fileID: 0}
+  impactEffect: {fileID: 3487647375945376829, guid: 26701ed604abeb243bc3bb015ce7800b, type: 3}
 --- !u!50 &8444735265996009373
 Rigidbody2D:
   serializedVersion: 4

@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+
+    public static MenuController Instance;
+
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public AudioSource playSound;
@@ -16,7 +19,15 @@ public class MenuController : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Update()

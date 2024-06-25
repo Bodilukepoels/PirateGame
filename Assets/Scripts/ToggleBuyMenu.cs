@@ -4,8 +4,36 @@ using UnityEngine;
 
 public class ToggleBuyMenu : MonoBehaviour
 {
+    private static ToggleBuyMenu instance;
+
     public Canvas buyMenuCanvas;
-    public AudioSource Audio;
+    public AudioSource audioSource;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if (buyMenuCanvas == null)
+        {
+            buyMenuCanvas = GameObject.Find("BuyMenuCanvas").GetComponent<Canvas>();
+        }
+
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+    }
 
     public void ToggleCanvas()
     {
@@ -19,7 +47,7 @@ public class ToggleBuyMenu : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Audio.enabled = true;
+            audioSource.enabled = true;
             ToggleCanvas();
         }
     }
@@ -28,7 +56,7 @@ public class ToggleBuyMenu : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Audio.enabled = false;
+            audioSource.enabled = false;
             ToggleCanvas();
         }
     }
