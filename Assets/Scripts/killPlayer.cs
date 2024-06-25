@@ -23,13 +23,14 @@ public class killPlayer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        // Als de speler de trigger raakt, roep dan TakeDamage aan in MenuController
         if (other.CompareTag(playerTag))
         {
             menuController = other.GetComponent<MenuController>();
 
             if (menuController != null)
             {
-                menuController.TakeDamage(1000000);
+                menuController.TakeDamage(1000000); // Vermoord de speler
             }
             else
             {

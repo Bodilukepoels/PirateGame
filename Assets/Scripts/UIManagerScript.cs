@@ -12,6 +12,7 @@ public class UIManagerScript : MonoBehaviour
 
     void Awake()
     {
+        // Controleer of er nog geen UIManagerScript bestaat.
         if (Instance == null)
         {
             Instance = this;
@@ -26,19 +27,25 @@ public class UIManagerScript : MonoBehaviour
 
     void Start()
     {
+        // Zet de tekst van de bananen op het scherm.
         bananasTxt.text = totalBananas.bananas.ToString();
+
+        // Luistert naar veranderingen in het aantal bananen.
         totalBananas.OnBananasChanged += UpdateBananasText;
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDestroy()
     {
         totalBananas.OnBananasChanged -= UpdateBananasText;
+
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Controleert of de nieuwe scène "youDied" is. Zo ja, delete de gameObject
         if (scene.name == "youDied")
         {
             Destroy(gameObject);
@@ -47,6 +54,7 @@ public class UIManagerScript : MonoBehaviour
 
     private void UpdateBananasText(int newBananas)
     {
+        // Past de tekst aan om het nieuwe aantal bananen te laten zien
         bananasTxt.text = newBananas.ToString();
     }
 }

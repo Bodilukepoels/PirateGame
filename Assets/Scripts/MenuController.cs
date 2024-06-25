@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-
     public static MenuController Instance;
 
     public float moveSpeed = 5f;
@@ -14,8 +13,8 @@ public class MenuController : MonoBehaviour
     public Animator animator;
     public float currentHealth;
 
-    Vector2 moveDirection;
-    bool isDead = false;
+    private Vector2 moveDirection;
+    private bool isDead = false;
 
     void Awake()
     {
@@ -32,34 +31,35 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if (isDead)
+        // Update de bewegingsrichting en animaties van de speler
+        if (!isDead)
         {
-            return;
+            float moveX = Input.GetAxisRaw("Horizontal") * moveSpeed;
+            float moveY = Input.GetAxisRaw("Vertical") * moveSpeed;
+            moveDirection = new Vector2(moveX, moveY).normalized;
+
+            animator.SetFloat("Horizontal", moveDirection.x);
+            animator.SetFloat("Vertical", moveDirection.y);
+            animator.SetFloat("Speed", moveDirection.sqrMagnitude);
         }
-
-        float moveX = Input.GetAxisRaw("Horizontal") * moveSpeed;
-        float moveY = Input.GetAxisRaw("Vertical") * moveSpeed;
-
-        moveDirection = new Vector2(moveX, moveY).normalized;
-
-        animator.SetFloat("Horizontal", moveDirection.x);
-        animator.SetFloat("Vertical", moveDirection.y);
-        animator.SetFloat("Speed", moveDirection.sqrMagnitude);
     }
 
     private void FixedUpdate()
     {
-        if (isDead)
+        // Pas de snelheid van de speler toe op de Rigidbody
+        if (!isDead)
+        {
+            rb.velocity = moveDirection * moveSpeed;
+        }
+        else
         {
             rb.velocity = Vector2.zero;
-            return;
         }
-
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
     }
 
     public void TakeDamage(float damage)
     {
+        // Verminder de gezondheid van de speler en handel de dood af als de gezondheid nul is
         currentHealth -= damage;
 
         if (currentHealth <= 0 && !isDead)
@@ -71,14 +71,15 @@ public class MenuController : MonoBehaviour
 
     void Die()
     {
+        // Start de dood-animatie en laad vervolgens de "youDied" scene
         animator.SetBool("IsDead", true);
         StartCoroutine(DieHandler());
-
         playSound.Play();
     }
 
     IEnumerator DieHandler()
     {
+        // Wacht enkele seconden voordat de scene geladen wordt
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("youDied");
         Destroy(gameObject);

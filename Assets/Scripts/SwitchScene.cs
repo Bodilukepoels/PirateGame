@@ -5,11 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class SwitchScene : MonoBehaviour
 {
-    public void GoToSceneGameOne() {
+    // Gaat naar de "CutsceneBegin" scene
+    public void GoToSceneGameOne()
+    {
         SceneManager.LoadScene("CutsceneBegin");
     }
 
-    public void GoToSceneMainMenu() {
+    // Gaat naar de "MainMenu" scene
+    public void GoToSceneMainMenu()
+    {
         SceneManager.LoadScene("MainMenu");
     }
 }
+

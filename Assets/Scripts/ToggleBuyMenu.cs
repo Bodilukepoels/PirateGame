@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ToggleBuyMenu : MonoBehaviour
@@ -9,7 +7,7 @@ public class ToggleBuyMenu : MonoBehaviour
     public Canvas buyMenuCanvas;
     public AudioSource audioSource;
 
-    private void Awake()
+    private void Awake() //DontDestroyOnLoad
     {
         if (instance == null)
         {
@@ -24,6 +22,7 @@ public class ToggleBuyMenu : MonoBehaviour
 
     private void Start()
     {
+        // Zoekt de BuyMenuCanvas en audiosource als die er niet zijn
         if (buyMenuCanvas == null)
         {
             buyMenuCanvas = GameObject.Find("BuyMenuCanvas").GetComponent<Canvas>();
@@ -35,14 +34,13 @@ public class ToggleBuyMenu : MonoBehaviour
         }
     }
 
+    // Zet de buyMenuCanvas aan of uit
     public void ToggleCanvas()
     {
-        if (buyMenuCanvas != null)
-        {
             buyMenuCanvas.enabled = !buyMenuCanvas.enabled;
-        }
     }
 
+    // Maak een apen geluid als je de trigger binnenloopt
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -52,6 +50,7 @@ public class ToggleBuyMenu : MonoBehaviour
         }
     }
 
+    // Zet het apen geluid uit als je de trigger uitloopt
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

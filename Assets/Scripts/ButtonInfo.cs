@@ -13,13 +13,14 @@ public class ButtonInfo : MonoBehaviour
 
     void Start()
     {
+        //De button wordt meteen toegevoegd aan de onclick() omdat het anders bij scene changes leeg blijft
         button = GetComponent<Button>();
         button.onClick.AddListener(() => ShopManagerScript.Instance.Buy(UpgradeID));
-
 
         UpdatePriceText();
     }
 
+    //De prijzentext die wordt weergeven op de buttons in de shop
     public void UpdatePriceText()
     {
             PriceText.text = ShopManagerScript.Instance.shopItems[1, UpgradeID].ToString();

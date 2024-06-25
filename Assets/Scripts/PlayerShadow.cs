@@ -12,6 +12,7 @@ public class PlayerShadow : MonoBehaviour
     [SerializeField] private Transform target;
     void Update()
     {
+        //Volgt letterlijk gewoon de speler, draait uiteraard niet mee.
         Vector3 targetPosition = target.position + offset;
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }

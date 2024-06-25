@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
             }
         }
 
+        // Checkt of de kogel een muur raakt, aangezien ze in de bananen enemies toch vast blijven zitten
         TilemapCollider2D tilemapCollider = collision.collider.GetComponent<TilemapCollider2D>();
         if (tilemapCollider != null)
         {
@@ -35,6 +36,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Particles voor de kogel (als die de muur raakt dus)
     void InstantiateImpactEffect(Vector2 position)
     {
         if (impactEffect != null)

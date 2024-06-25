@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
@@ -21,7 +22,6 @@ public class EnemyFollow : MonoBehaviour
     public AudioSource playSound;
     public AudioSource DeathSound;
     public SpriteRenderer spriteRenderer;
-
     public CapsuleCollider2D capsuleCollider;
 
     private EnemySpawner spawner;
@@ -41,26 +41,16 @@ public class EnemyFollow : MonoBehaviour
     {
         if (!isKilled)
         {
-            if (player != null)
+            if (player != null && !PlayerController.isDead)
             {
-                Vector3 direction;
-
-                if (!PlayerController.isDead)
-                {
-                    direction = player.position - transform.position;
-                }
-                else
-                {
-                    direction = transform.position - player.position;
-                }
-
+                Vector3 direction = player.position - transform.position;
                 direction.Normalize();
                 transform.position += direction * moveSpeed * Time.deltaTime;
 
                 Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, transform.position.z);
                 transform.right = transform.position - targetPosition;
 
-                if (!PlayerController.isDead && Vector3.Distance(transform.position, player.position) <= attackRange && Time.time - timeOfLastAttack >= timeBtwAttacks)
+                if (Vector3.Distance(transform.position, player.position) <= attackRange && Time.time - timeOfLastAttack >= timeBtwAttacks)
                 {
                     Attack();
                     timeOfLastAttack = Time.time;
@@ -69,6 +59,7 @@ public class EnemyFollow : MonoBehaviour
         }
     }
 
+    // Functie om damage te krijgen
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -87,6 +78,7 @@ public class EnemyFollow : MonoBehaviour
         this.spawner = spawner;
     }
 
+    // Coroutine om rood te worden als de banaan damage krijgt
     IEnumerator ChangeColor()
     {
         spriteRenderer.color = Color.red;
@@ -94,6 +86,7 @@ public class EnemyFollow : MonoBehaviour
         spriteRenderer.color = Color.white;
     }
 
+    // Functie om aan te vallen
     void Attack()
     {
         if (playerController != null)
@@ -104,6 +97,7 @@ public class EnemyFollow : MonoBehaviour
         }
     }
 
+    // Functie om dood te gaan
     void Die()
     {
         isKilled = true;
@@ -112,12 +106,13 @@ public class EnemyFollow : MonoBehaviour
         Debug.Log("Enemy defeated!");
         StartCoroutine(DieHandler());
         int randomNumber = UnityEngine.Random.Range(30, 100);
-        totalBananas.bananas += randomNumber;
+        totalBananas.bananas += randomNumber; // Toevoegen van bananen aan het totale aantal bananen
         DeathSound.Play();
 
         capsuleCollider.enabled = false;
     }
 
+    // Coroutine om dood gaan te behandelen
     IEnumerator DieHandler()
     {
         yield return new WaitForSeconds(1f);
@@ -129,3 +124,4 @@ public class EnemyFollow : MonoBehaviour
         }
     }
 }
+

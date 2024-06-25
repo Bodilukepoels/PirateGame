@@ -5,7 +5,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public static int roundCount = 0;
+    public static int roundCount = 0; // Aantal gespeelde rondes
     public TMP_Text roundCountText;
     private EnemySpawner enemySpawner;
 
@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            roundCount = 0;
+            roundCount = 0; // Reset roundCount op start
             totalBananas.bananas = 5000;
         }
         else
@@ -34,10 +34,12 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Handel verschillende scenes af bij het laden
         if (scene.name == "Game 2")
         {
             roundCount++;
 
+            // Zoek EnemySpawner in de huidige scene en pas het aantal enemies aan op basis van de ronde
             enemySpawner = FindObjectOfType<EnemySpawner>();
             if (enemySpawner != null)
             {
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
                 enemySpawner.StartSpawning();
             }
 
+            // Update UI tekst voor ronde teller
             if (roundCountText != null)
             {
                 roundCountText.text = $"Round: {roundCount}";
@@ -55,12 +58,14 @@ public class GameManager : MonoBehaviour
         }
         else if (scene.name == "Game 1")
         {
+            // Haalt de enemySpawner weg
             if (enemySpawner != null)
             {
                 Destroy(enemySpawner.gameObject);
                 enemySpawner = null;
             }
 
+            // Hide de roundCount text
             if (roundCountText != null)
             {
                 roundCountText.gameObject.SetActive(false);
@@ -68,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
         else if (scene.name == "youDied")
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Verwijdert GameManager bij het laden van "youDied" scene
         }
     }
 }

@@ -4,31 +4,30 @@ using UnityEngine;
 
 public class switchCam : MonoBehaviour
 {
-    public Camera cameraToActivate;
+    public Camera cameraToActivate; // De camera die wordt geactiveerd door de trigger
     public GameObject player;
 
     void Start()
     {
-        if (player == null)
-        {
-            Debug.LogError("Player object is not assigned!");
-        }
-
+        // Controleer of de camera is toegewezen
         if (cameraToActivate == null)
         {
-            Debug.LogError("Camera to activate is not assigned!");
+            Debug.LogError("Not assigned!");
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject == player) ;
+        // Controleer of het degene die het object heeft getriggerd een player is
+        if (other.gameObject == player)
         {
+            // Zet alle andere camera's uit
             foreach (Camera cam in Camera.allCameras)
             {
                 cam.gameObject.SetActive(false);
             }
 
+            // Activeer de specifieke camera die is toegewezen
             cameraToActivate.gameObject.SetActive(true);
         }
     }
