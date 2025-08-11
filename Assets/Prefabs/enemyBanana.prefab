@@ -113,7 +113,7 @@ MonoBehaviour:
   playSound: {fileID: 4415839920866274449}
   DeathSound: {fileID: 4751597192256966689}
   spriteRenderer: {fileID: 46105212190433060}
-  capsuleCollider: {fileID: 46105212190433063}
+  capsuleCollider: {fileID: 46105212190433062}
 --- !u!70 &46105212190433063
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -121,7 +121,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46105212190433082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -378,4 +378,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

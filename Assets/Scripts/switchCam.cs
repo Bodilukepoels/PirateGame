@@ -13,7 +13,7 @@ public class switchCam : MonoBehaviour
         if (cameraToActivate == null)
         {
             Debug.LogError("Not assigned!");
-        }
+        }  
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -25,10 +25,12 @@ public class switchCam : MonoBehaviour
             foreach (Camera cam in Camera.allCameras)
             {
                 cam.gameObject.SetActive(false);
+                cam.gameObject.GetComponent<AudioListener>().enabled = false;
             }
 
             // Activeer de specifieke camera die is toegewezen
             cameraToActivate.gameObject.SetActive(true);
+            cameraToActivate.gameObject.GetComponent<AudioListener>().enabled = true;
         }
     }
 }

@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
         if (scene.name == "Game 2")
         {
             roundCount++;
+            Cursor.visible = false;
 
             // Zoek EnemySpawner in de huidige scene en pas het aantal enemies aan op basis van de ronde
             enemySpawner = FindObjectOfType<EnemySpawner>();
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
         }
         else if (scene.name == "Game 1")
         {
+            Cursor.visible = true;
             // Haalt de enemySpawner weg
             if (enemySpawner != null)
             {
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
         }
         else if (scene.name == "youDied")
         {
+            Cursor.visible = true;
             Destroy(gameObject); // Verwijdert GameManager bij het laden van "youDied" scene
         }
     }
